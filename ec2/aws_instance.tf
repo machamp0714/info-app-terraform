@@ -10,8 +10,16 @@ resource "aws_instance" "server" {
   monitoring                  = true
   subnet_id                   = data.terraform_remote_state.vpc.outputs.public_subnet_1a_id # terraform 0.12からoutputsを付けるように変更された
   associate_public_ip_address = true
+  vpc_security_group_ids = [
+    aws_security_group.info_app_sg.id
+  ]
 
   tags = {
     Name = "info-app"
   }
 }
+
+output "server_public_dns" {
+  value = aws_instance.server.public_dns
+}
+

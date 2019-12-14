@@ -1,6 +1,10 @@
 resource "aws_security_group" "info_app_sg" {
   name   = "info_app_sg"
   vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
+
+  tags = {
+    Name = "info-app-sg"
+  }
 }
 
 resource "aws_security_group_rule" "ingress" {
